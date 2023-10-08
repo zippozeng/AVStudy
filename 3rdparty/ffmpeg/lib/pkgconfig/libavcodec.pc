@@ -1,0 +1,14 @@
+prefix=/opt/homebrew/Cellar/ffmpeg/6.0_1
+exec_prefix=${prefix}
+libdir=/opt/homebrew/Cellar/ffmpeg/6.0_1/lib
+includedir=/opt/homebrew/Cellar/ffmpeg/6.0_1/include
+
+Name: libavcodec
+Description: FFmpeg codec library
+Version: 60.3.100
+Requires: 
+Requires.private: libswresample >= 4.10.100, libavutil >= 58.2.100
+Conflicts:
+Libs: -L${libdir}  -lavcodec 
+Libs.private: -L/opt/homebrew/Cellar/libvpx/1.13.0/lib -lvpx -lm -L/opt/homebrew/Cellar/libvpx/1.13.0/lib -lvpx -lm -L/opt/homebrew/Cellar/libvpx/1.13.0/lib -lvpx -lm -L/opt/homebrew/Cellar/libvpx/1.13.0/lib -lvpx -lm -L/opt/homebrew/Cellar/webp/1.3.1/lib -lwebpmux -liconv -lm -llzma -L/opt/homebrew/Cellar/aribb24/1.0.4/lib -laribb24 -L/opt/homebrew/Cellar/dav1d/1.2.1/lib -ldav1d -lopencore-amrwb -lsnappy -lstdc++ -framework AudioToolbox -L/opt/homebrew/Cellar/jpeg-xl/0.8.2/lib -L/opt/homebrew/Cellar/libvmaf/2.3.1/lib -L/opt/homebrew/Cellar/aom/3.6.1/lib -laom -lvmaf -ljxl -lmp3lame -lm -lopencore-amrnb -L/opt/homebrew/Cellar/openjpeg/2.5.0_1/lib -lopenjp2 -L/opt/homebrew/Cellar/opus/1.4/lib -lopus -L/opt/homebrew/Cellar/rav1e/0.6.6/lib -lrav1e -L/opt/homebrew/Cellar/speex/1.2.1/lib -lspeex -L/opt/homebrew/Cellar/svt-av1/1.6.0/lib -lSvtAv1Enc -ltheoraenc -ltheoradec -logg -L/opt/homebrew/Cellar/libvorbis/1.3.7/lib -lvorbis -L/opt/homebrew/Cellar/libvorbis/1.3.7/lib -lvorbisenc -L/opt/homebrew/Cellar/webp/1.3.1/lib -lwebp -L/opt/homebrew/Cellar/x264/r3095/lib -lx264 -L/opt/homebrew/Cellar/x265/3.5/lib -lx265 -lxvidcore -pthread -lz -framework VideoToolbox -framework CoreFoundation -framework CoreMedia -framework CoreVideo -framework CoreServices
+Cflags: -I${includedir}

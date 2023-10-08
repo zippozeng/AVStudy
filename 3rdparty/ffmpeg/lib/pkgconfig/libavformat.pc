@@ -1,0 +1,14 @@
+prefix=/opt/homebrew/Cellar/ffmpeg/6.0_1
+exec_prefix=${prefix}
+libdir=/opt/homebrew/Cellar/ffmpeg/6.0_1/lib
+includedir=/opt/homebrew/Cellar/ffmpeg/6.0_1/include
+
+Name: libavformat
+Description: FFmpeg container format library
+Version: 60.3.100
+Requires: 
+Requires.private: libavcodec >= 60.3.100, libswresample >= 4.10.100, libavutil >= 58.2.100
+Conflicts:
+Libs: -L${libdir}  -lavformat 
+Libs.private: -lm -lxml2 -lbz2 -L/opt/homebrew/Cellar/libbluray/1.3.4/lib -lbluray -lz -L/opt/homebrew/Cellar/gnutls/3.8.1/lib -lgnutls -L/opt/homebrew/Cellar/librist/0.2.7_3/lib -lrist -L/opt/homebrew/Cellar/srt/1.5.2/lib -lsrt -L/opt/homebrew/Cellar/zeromq/4.3.4/lib -lzmq
+Cflags: -I${includedir}

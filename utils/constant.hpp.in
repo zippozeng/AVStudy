@@ -1,0 +1,10 @@
+//
+// Created by zippozeng on 2023/10/8.
+//
+
+#ifndef AVSTUDY_CONSTANT_HPP
+#define AVSTUDY_CONSTANT_HPP
+
+#define PROJECT_PATH "@PROJECT_PATH@"
+
+#endif //AVSTUDY_CONSTANT_HPP
