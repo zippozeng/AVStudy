@@ -8,6 +8,7 @@ project("AVStudy"
 set(CMAKE_CXX_STANDARD 17)
 set(FFMPEG_DIR ${PROJECT_SOURCE_DIR}/3rdparty/ffmpeg)
 set(PROJECT_PATH "${PROJECT_SOURCE_DIR}")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 configure_file(
         "${PROJECT_SOURCE_DIR}/utils/constant.hpp.in"
@@ -15,3 +16,4 @@ configure_file(
 )
 
 add_subdirectory(demux)
+add_subdirectory(decode)

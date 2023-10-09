@@ -35,5 +35,10 @@
 .idea
 cmake-build-*
 
+# VSCode
+build
+.cache
+
 # user-defined
 out
+.DS_Store
