@@ -263,7 +263,7 @@ typedef struct AVRegionOfInterest {
      * bottom edges and from the left edge of the frame to the left and
      * right edges of the rectangle defining this region of interest.
      *
-     * The constraints on a region are encoder dependent, so the region
+     * The constraints on a region are encode dependent, so the region
      * actually affected may be slightly larger for alignment or other
      * reasons.
      */

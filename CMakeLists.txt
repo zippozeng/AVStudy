@@ -17,3 +17,4 @@ configure_file(
 
 add_subdirectory(demux)
 add_subdirectory(decode)
+add_subdirectory(encode)

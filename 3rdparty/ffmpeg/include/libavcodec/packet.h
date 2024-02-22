@@ -121,13 +121,13 @@ enum AVPacketSideDataType {
     AV_PKT_DATA_AUDIO_SERVICE_TYPE,
 
     /**
-     * This side data contains quality related information from the encoder.
+     * This side data contains quality related information from the encode.
      * @code
      * u32le quality factor of the compressed frame. Allowed range is between 1 (good) and FF_LAMBDA_MAX (bad).
      * u8    picture type
      * u8    error count
      * u16   reserved
-     * u64le[error count] sum of squared differences between encoder in and output
+     * u64le[error count] sum of squared differences between encode in and output
      * @endcode
      */
     AV_PKT_DATA_QUALITY_STATS,

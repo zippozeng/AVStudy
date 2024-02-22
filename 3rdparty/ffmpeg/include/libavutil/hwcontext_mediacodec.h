@@ -40,7 +40,7 @@ typedef struct AVMediaCodecDeviceContext {
      * createPersistentInputSurface.
      *
      * It can be used as output surface for decode and input surface for
-     * encoder.
+     * encode.
      */
     void *native_window;
 

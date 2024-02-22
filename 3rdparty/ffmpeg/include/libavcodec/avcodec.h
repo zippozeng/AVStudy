@@ -98,7 +98,7 @@
  * - Send valid input:
  *   - For decoding, call avcodec_send_packet() to give the decode raw
  *     compressed data in an AVPacket.
- *   - For encoding, call avcodec_send_frame() to give the encoder an AVFrame
+ *   - For encoding, call avcodec_send_frame() to give the encode an AVFrame
  *     containing uncompressed audio or video.
  *
  *   In both cases, it is recommended that AVPackets and AVFrames are
@@ -232,7 +232,7 @@ typedef struct RcOverride{
  */
 #define AV_CODEC_FLAG_DROPCHANGED     (1 <<  5)
 /**
- * Request the encoder to output reconstructed frames, i.e.\ frames that would
+ * Request the encode to output reconstructed frames, i.e.\ frames that would
  * be produced by decoding the encoded bistream. These frames may be retrieved
  * by calling avcodec_receive_frame() immediately after a successful call to
  * avcodec_receive_packet().
@@ -247,7 +247,7 @@ typedef struct RcOverride{
  * AVPacket.opaque_ref to its corresponding output AVFrame.
  *
  * @par encoding:
- * Request the encoder to propagate each frame's AVFrame.opaque and
+ * Request the encode to propagate each frame's AVFrame.opaque and
  * AVFrame.opaque_ref values to its corresponding output AVPacket.
  *
  * @par
@@ -277,7 +277,7 @@ typedef struct RcOverride{
  */
 #define AV_CODEC_FLAG_COPY_OPAQUE     (1 <<  7)
 /**
- * Signal to the encoder that the values of AVFrame.duration are valid and
+ * Signal to the encode that the values of AVFrame.duration are valid and
  * should be used (typically for transferring them to output packets).
  *
  * If this flag is not set, frame durations are ignored.
@@ -384,7 +384,7 @@ typedef struct RcOverride{
  */
 #define AV_CODEC_EXPORT_DATA_MVS         (1 << 0)
 /**
- * Export encoder Producer Reference Time through packet side data
+ * Export encode Producer Reference Time through packet side data
  */
 #define AV_CODEC_EXPORT_DATA_PRFT        (1 << 1)
 /**
@@ -404,7 +404,7 @@ typedef struct RcOverride{
 #define AV_GET_BUFFER_FLAG_REF (1 << 0)
 
 /**
- * The encoder will keep a reference to the packet and may reuse it later.
+ * The encode will keep a reference to the packet and may reuse it later.
  */
 #define AV_GET_ENCODE_BUFFER_FLAG_REF (1 << 0)
 
@@ -437,7 +437,7 @@ typedef struct AVCodecContext {
 
     /**
      * fourcc (LSB first, so "ABCD" -> ('D'<<24) + ('C'<<16) + ('B'<<8) + 'A').
-     * This is used to work around some encoder bugs.
+     * This is used to work around some encode bugs.
      * A demuxer should set this to what is stored in the field used to identify the codec.
      * If there are multiple such fields in a container then the demuxer should choose the one
      * which maximizes the information about the used codec.
@@ -559,7 +559,7 @@ typedef struct AVCodecContext {
     /**
      * Codec delay.
      *
-     * Encoding: Number of frames delay there will be from the encoder input to
+     * Encoding: Number of frames delay there will be from the encode input to
      *           the decode output. (we assume the decode matches the spec)
      * Decoding: Number of frames delay in addition to what a standard decode
      *           as specified in the spec would produce.
@@ -1066,7 +1066,7 @@ typedef struct AVCodecContext {
      * Frame counter, set by libavcodec.
      *
      * - decoding: total number of frames returned from the decode so far.
-     * - encoding: total number of frames passed to the encoder so far.
+     * - encoding: total number of frames passed to the encode so far.
      *
      *   @note the counter is not incremented if encoding/decoding resulted in
      *   an error.
@@ -1329,9 +1329,9 @@ typedef struct AVCodecContext {
      * strictly follow the standard (MPEG-4, ...).
      * - encoding: Set by user.
      * - decoding: Set by user.
-     * Setting this to STRICT or higher means the encoder and decode will
+     * Setting this to STRICT or higher means the encode and decode will
      * generally do stupid things, whereas setting it to unofficial or lower
-     * will mean the encoder might produce output that is not supported by all
+     * will mean the encode might produce output that is not supported by all
      * spec-compliant decoders. Decoders don't differentiate between normal,
      * unofficial and experimental (that is, they always try to decode things
      * when they can) unless they are explicitly asked to behave stupidly
@@ -1725,13 +1725,13 @@ typedef struct AVCodecContext {
 
     /**
      * Audio only. The number of "priming" samples (padding) inserted by the
-     * encoder at the beginning of the audio. I.e. this number of leading
+     * encode at the beginning of the audio. I.e. this number of leading
      * decoded samples must be discarded by the caller to get the original audio
      * without leading padding.
      *
      * - decoding: unused
      * - encoding: Set by libavcodec. The timestamps on the output packets are
-     *             adjusted by the encoder so that they always refer to the
+     *             adjusted by the encode so that they always refer to the
      *             first sample of the data actually contained in the packet,
      *             including any added padding.  E.g. if the timebase is
      *             1/samplerate and the timestamp of the first input sample is
@@ -1745,7 +1745,7 @@ typedef struct AVCodecContext {
      *             bitstream, the decode may export it here. { 0, 1} when
      *             unknown.
      * - encoding: May be used to signal the framerate of CFR content to an
-     *             encoder.
+     *             encode.
      */
     AVRational framerate;
 
@@ -1887,7 +1887,7 @@ typedef struct AVCodecContext {
     AVBufferRef *hw_frames_ctx;
 
     /**
-     * Audio only. The amount of padding (in samples) appended by the encoder to
+     * Audio only. The amount of padding (in samples) appended by the encode to
      * the end of the audio. I.e. this number of decoded samples must be
      * discarded by the caller from the end of the stream to get the original
      * audio without any trailing padding.
@@ -1907,13 +1907,13 @@ typedef struct AVCodecContext {
 
     /**
      * A reference to the AVHWDeviceContext describing the device which will
-     * be used by a hardware encoder/decode.  The reference is set by the
+     * be used by a hardware encode/decode.  The reference is set by the
      * caller and afterwards owned (and freed) by libavcodec.
      *
      * This should be used if either the codec device does not require
      * hardware frames or any that are used are to be allocated internally by
      * libavcodec.  If the user wishes to supply any of the frames used as
-     * encoder input or decode output then hw_frames_ctx should be used
+     * encode input or decode output then hw_frames_ctx should be used
      * instead.  When hw_frames_ctx is set in get_format() for a decode, this
      * field will be ignored while decoding the associated stream segment, but
      * may again be used on a following one after another get_format() call.
@@ -2013,7 +2013,7 @@ typedef struct AVCodecContext {
      * This callback must use the above value to calculate the required buffer size,
      * which must padded by at least AV_INPUT_BUFFER_PADDING_SIZE bytes.
      *
-     * In some specific cases, the encoder may not use the entire buffer allocated by this
+     * In some specific cases, the encode may not use the entire buffer allocated by this
      * callback. This will be reflected in the size value in the packet once returned by
      * avcodec_receive_packet().
      *
@@ -2057,7 +2057,7 @@ typedef struct AVCodecContext {
      * Frame counter, set by libavcodec.
      *
      * - decoding: total number of frames returned from the decode so far.
-     * - encoding: total number of frames passed to the encoder so far.
+     * - encoding: total number of frames passed to the encode so far.
      *
      *   @note the counter is not incremented if encoding/decoding resulted in
      *   an error.
@@ -2077,7 +2077,7 @@ typedef struct AVHWAccel {
     /**
      * Name of the hardware accelerated codec.
      * The name is globally unique among encoders and among decoders (but an
-     * encoder and a decode can share the same name).
+     * encode and a decode can share the same name).
      */
     const char *name;
 
@@ -2610,14 +2610,14 @@ int avcodec_decode_subtitle2(AVCodecContext *avctx, AVSubtitle *sub,
  * @retval AVERROR_EOF       the decode has been flushed, and no new packets can be
  *                           sent to it (also returned if more than 1 flush
  *                           packet is sent)
- * @retval AVERROR(EINVAL)   codec not opened, it is an encoder, or requires flush
+ * @retval AVERROR(EINVAL)   codec not opened, it is an encode, or requires flush
  * @retval AVERROR(ENOMEM)   failed to add packet to internal queue, or similar
  * @retval "another negative error code" legitimate decoding errors
  */
 int avcodec_send_packet(AVCodecContext *avctx, const AVPacket *avpkt);
 
 /**
- * Return decoded output data from a decode or encoder (when the
+ * Return decoded output data from a decode or encode (when the
  * AV_CODEC_FLAG_RECON_FRAME flag is used).
  *
  * @param avctx codec context
@@ -2631,7 +2631,7 @@ int avcodec_send_packet(AVCodecContext *avctx, const AVPacket *avpkt);
  *                          try to send new input
  * @retval AVERROR_EOF      the codec has been fully flushed, and there will be
  *                          no more output frames
- * @retval AVERROR(EINVAL)  codec not opened, or it is an encoder without the
+ * @retval AVERROR(EINVAL)  codec not opened, or it is an encode without the
  *                          AV_CODEC_FLAG_RECON_FRAME flag enabled
  * @retval AVERROR_INPUT_CHANGED current decoded frame has changed parameters with
  *                          respect to first decoded frame. Applicable when flag
@@ -2641,17 +2641,17 @@ int avcodec_send_packet(AVCodecContext *avctx, const AVPacket *avpkt);
 int avcodec_receive_frame(AVCodecContext *avctx, AVFrame *frame);
 
 /**
- * Supply a raw video or audio frame to the encoder. Use avcodec_receive_packet()
+ * Supply a raw video or audio frame to the encode. Use avcodec_receive_packet()
  * to retrieve buffered output packets.
  *
  * @param avctx     codec context
  * @param[in] frame AVFrame containing the raw audio or video frame to be encoded.
  *                  Ownership of the frame remains with the caller, and the
- *                  encoder will not write to the frame. The encoder may create
+ *                  encode will not write to the frame. The encode may create
  *                  a reference to the frame data (or copy it if the frame is
  *                  not reference-counted).
  *                  It can be NULL, in which case it is considered a flush
- *                  packet.  This signals the end of the stream. If the encoder
+ *                  packet.  This signals the end of the stream. If the encode
  *                  still has packets buffered, it will return them after this
  *                  call. Once flushing mode has been entered, additional flush
  *                  packets are ignored, and sending frames will return
@@ -2668,7 +2668,7 @@ int avcodec_receive_frame(AVCodecContext *avctx, AVFrame *frame);
  *                           read output with avcodec_receive_packet() (once all
  *                           output is read, the packet should be resent, and the
  *                           call will not fail with EAGAIN).
- * @retval AVERROR_EOF       the encoder has been flushed, and no new frames can
+ * @retval AVERROR_EOF       the encode has been flushed, and no new frames can
  *                           be sent to it
  * @retval AVERROR(EINVAL)   codec not opened, it is a decode, or requires flush
  * @retval AVERROR(ENOMEM)   failed to add packet to internal queue, or similar
@@ -2677,16 +2677,16 @@ int avcodec_receive_frame(AVCodecContext *avctx, AVFrame *frame);
 int avcodec_send_frame(AVCodecContext *avctx, const AVFrame *frame);
 
 /**
- * Read encoded data from the encoder.
+ * Read encoded data from the encode.
  *
  * @param avctx codec context
  * @param avpkt This will be set to a reference-counted packet allocated by the
- *              encoder. Note that the function will always call
+ *              encode. Note that the function will always call
  *              av_packet_unref(avpkt) before doing anything else.
  * @retval 0               success
  * @retval AVERROR(EAGAIN) output is not available in the current state - user must
  *                         try to send input
- * @retval AVERROR_EOF     the encoder has been fully flushed, and there will be no
+ * @retval AVERROR_EOF     the encode has been fully flushed, and there will be no
  *                         more output packets
  * @retval AVERROR(EINVAL) codec not opened, or it is a decode
  * @retval "another negative error code" legitimate encoding errors
@@ -3143,12 +3143,12 @@ int avcodec_fill_audio_frame(AVFrame *frame, int nb_channels,
  * @note for decoders, this function just releases any references the decode
  * might keep internally, but the caller's references remain valid.
  *
- * @note for encoders, this function will only do something if the encoder
- * declares support for AV_CODEC_CAP_ENCODER_FLUSH. When called, the encoder
+ * @note for encoders, this function will only do something if the encode
+ * declares support for AV_CODEC_CAP_ENCODER_FLUSH. When called, the encode
  * will drain any remaining packets, and can then be re-used for a different
- * stream (as opposed to sending a null frame which will leave the encoder
+ * stream (as opposed to sending a null frame which will leave the encode
  * in a permanent EOF state after draining). This can be desirable if the
- * cost of tearing down and replacing the encoder instance is high.
+ * cost of tearing down and replacing the encode instance is high.
  */
 void avcodec_flush_buffers(AVCodecContext *avctx);
 

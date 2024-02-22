@@ -594,12 +594,12 @@ enum AVCodecID {
     AV_CODEC_ID_WRAPPED_AVFRAME = 0x21001, ///< Passthrough codec, AVFrames wrapped in AVPacket
     /**
      * Dummy null video codec, useful mainly for development and debugging.
-     * Null encoder/decode discard all input and never return any output.
+     * Null encode/decode discard all input and never return any output.
      */
     AV_CODEC_ID_VNULL,
     /**
      * Dummy null audio codec, useful mainly for development and debugging.
-     * Null encoder/decode discard all input and never return any output.
+     * Null encode/decode discard all input and never return any output.
      */
     AV_CODEC_ID_ANULL,
 };
@@ -641,7 +641,7 @@ int av_get_exact_bits_per_sample(enum AVCodecID codec_id);
  * @return A name for the profile_ObjectType if found, NULL otherwise.
  *
  * @note unlike av_get_profile_name(), which searches a list of profiles
- *       supported by a specific decode or encoder implementation, this
+ *       supported by a specific decode or encode implementation, this
  *       function searches the list of profiles from the AVCodecDescriptor
  */
 const char *avcodec_profile_name(enum AVCodecID codec_id, int profile);

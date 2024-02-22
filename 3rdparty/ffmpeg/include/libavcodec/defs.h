@@ -53,7 +53,7 @@
 #define AV_EF_IGNORE_ERR     (1<<15)  ///< ignore errors and continue
 #define AV_EF_CAREFUL        (1<<16)  ///< consider things that violate the spec, are fast to calculate and have not been seen in the wild as errors
 #define AV_EF_COMPLIANT      (1<<17)  ///< consider all spec non compliances as errors
-#define AV_EF_AGGRESSIVE     (1<<18)  ///< consider things that a sane encoder/muxer should not do as an error
+#define AV_EF_AGGRESSIVE     (1<<18)  ///< consider things that a sane encode/muxer should not do as an error
 
 #define FF_COMPLIANCE_VERY_STRICT   2 ///< Strictly conform to an older more strict version of the spec or reference software.
 #define FF_COMPLIANCE_STRICT        1 ///< Strictly conform to all the things in the spec no matter what consequences.

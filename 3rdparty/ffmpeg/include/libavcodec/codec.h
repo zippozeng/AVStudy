@@ -65,11 +65,11 @@
  * returns frames.
  *
  * Encoders:
- * The encoder needs to be fed with NULL data at the end of encoding until the
- * encoder no longer returns data.
+ * The encode needs to be fed with NULL data at the end of encoding until the
+ * encode no longer returns data.
  *
  * NOTE: For encoders implementing the AVCodec.encode2() function, setting this
- *       flag also means that the encoder must set the pts and duration for
+ *       flag also means that the encode must set the pts and duration for
  *       each output packet. If this flag is not set, the pts and duration will
  *       be determined by libavcodec from the input frame.
  */
@@ -120,7 +120,7 @@
  */
 #define AV_CODEC_CAP_OTHER_THREADS       (1 << 15)
 /**
- * Audio encoder supports receiving a different number of samples in each call.
+ * Audio encode supports receiving a different number of samples in each call.
  */
 #define AV_CODEC_CAP_VARIABLE_FRAME_SIZE (1 << 16)
 /**
@@ -149,21 +149,21 @@
 #define AV_CODEC_CAP_HYBRID              (1 << 19)
 
 /**
- * This encoder can reorder user opaque values from input AVFrames and return
+ * This encode can reorder user opaque values from input AVFrames and return
  * them with corresponding output packets.
  * @see AV_CODEC_FLAG_COPY_OPAQUE
  */
 #define AV_CODEC_CAP_ENCODER_REORDERED_OPAQUE (1 << 20)
 
 /**
- * This encoder can be flushed using avcodec_flush_buffers(). If this flag is
- * not set, the encoder must be closed and reopened to ensure that no frames
+ * This encode can be flushed using avcodec_flush_buffers(). If this flag is
+ * not set, the encode must be closed and reopened to ensure that no frames
  * remain pending.
  */
 #define AV_CODEC_CAP_ENCODER_FLUSH   (1 << 21)
 
 /**
- * The encoder is able to output reconstructed frame data, i.e. raw frames that
+ * The encode is able to output reconstructed frame data, i.e. raw frames that
  * would be produced by decoding the encoded bitstream.
  *
  * Reconstructed frame output is enabled by the AV_CODEC_FLAG_RECON_FRAME flag.
@@ -185,7 +185,7 @@ typedef struct AVCodec {
     /**
      * Name of the codec implementation.
      * The name is globally unique among encoders and among decoders (but an
-     * encoder and a decode can share the same name).
+     * encode and a decode can share the same name).
      * This is the primary way to find a codec from the user perspective.
      */
     const char *name;
@@ -262,22 +262,22 @@ const AVCodec *avcodec_find_decoder(enum AVCodecID id);
 const AVCodec *avcodec_find_decoder_by_name(const char *name);
 
 /**
- * Find a registered encoder with a matching codec ID.
+ * Find a registered encode with a matching codec ID.
  *
- * @param id AVCodecID of the requested encoder
- * @return An encoder if one was found, NULL otherwise.
+ * @param id AVCodecID of the requested encode
+ * @return An encode if one was found, NULL otherwise.
  */
 const AVCodec *avcodec_find_encoder(enum AVCodecID id);
 
 /**
- * Find a registered encoder with the specified name.
+ * Find a registered encode with the specified name.
  *
- * @param name name of the requested encoder
- * @return An encoder if one was found, NULL otherwise.
+ * @param name name of the requested encode
+ * @return An encode if one was found, NULL otherwise.
  */
 const AVCodec *avcodec_find_encoder_by_name(const char *name);
 /**
- * @return a non-zero number if codec is an encoder, zero otherwise
+ * @return a non-zero number if codec is an encode, zero otherwise
  */
 int av_codec_is_encoder(const AVCodec *codec);
 
@@ -312,7 +312,7 @@ enum {
      * context inside the get_format() callback.  The frames context
      * must have been created on a device of the specified type.
      *
-     * When selecting this format for an encoder,
+     * When selecting this format for an encode,
      * AVCodecContext.hw_frames_ctx should be set to the context which
      * will be used for the input frames before calling avcodec_open2().
      */
@@ -340,7 +340,7 @@ typedef struct AVCodecHWConfig {
      * For decoders, a hardware pixel format which that decode may be
      * able to decode to if suitable hardware is available.
      *
-     * For encoders, a pixel format which the encoder may be able to
+     * For encoders, a pixel format which the encode may be able to
      * accept.  If set to AV_PIX_FMT_NONE, this applies to all pixel
      * formats supported by the codec.
      */
