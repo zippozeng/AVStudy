@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(encode)
 
-target_sources(encode PRIVATE main.cpp AudioEncoder.cpp)
+target_sources(encode PRIVATE main.cpp AudioEncoder.cpp VideoEncoder.cpp)
 
 target_include_directories(encode PRIVATE ${FFMPEG_DIR}/include)
 target_include_directories(encode PRIVATE ${PROJECT_BINARY_DIR})

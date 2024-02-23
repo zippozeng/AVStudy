@@ -6,6 +6,7 @@ extern "C" {
 }
 
 #include "AudioEncoder.hpp"
+#include "VideoEncoder.hpp"
 #include <utils/constant.hpp>
 
 void encodePCM2AAC() {
@@ -14,8 +15,16 @@ void encodePCM2AAC() {
     inputFilePath.append(PROJECT_PATH);
     inputFilePath.append("/res/44100_f32le_2.pcm");
     std::string outputFilePath = "/aac_audio.aac";
-    AudioEncoder encoder;
+
+    AudioEncoder encoder{};
     encoder.encode(inputFilePath, outputFilePath);
+
+    std::string videoInputFilePath;
+    videoInputFilePath.append(PROJECT_PATH);
+    videoInputFilePath.append("/res/demo.yuv");
+    std::string videoOutputFilePath = "/demo.h264";
+    VideoEncoder videoEncoder{};
+    videoEncoder.encode(videoInputFilePath, videoOutputFilePath);
 }
 
 int main() {

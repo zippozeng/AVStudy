@@ -172,15 +172,7 @@ int AudioEncoder::encode(std::string &filename, std::string &out_file_name) {
     int frame_bytes = av_get_bytes_per_sample(codec_ctx->sample_fmt) * frame->channels * frame->nb_samples;
     std::cout << "frame_bytes:" << frame_bytes << std::endl;
     auto *pcm_buf = new uint8_t[frame_bytes];
-    if (!pcm_buf) {
-        std::cerr << "Failed to allocate PCM Buffer!" << std::endl;
-        exit(1);
-    }
     auto *pcm_temp_buf = new uint8_t[frame_bytes];
-    if (!pcm_temp_buf) {
-        std::cerr << "Failed to allocate PCM temp Buffer!" << std::endl;
-        exit(1);
-    }
     int64_t pts = 0;
     // 读取pcm数据
     std::cout << "start encode" << std::endl;
